@@ -95,6 +95,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1 className="title"><a className="homepage" href="/">PokéApp</a></h1>
         {!pokemon &&
         <header className="App-header">
           {loading &&
@@ -127,20 +128,50 @@ class App extends Component {
 
           {!loading && !error &&
             <div className="pokemon">
-              <p>#{pokemon.id} - { pokemon.name }</p>
-              <img src={pokemon.sprites.front_default} /><br />
-              <p>{pokemon.generation}</p>
-              {types.map((item, index) => (
-                <p key={index}>{item}</p>
-              ))}
-              <ul>Stats
-              {pokemon.stats.map((stat, index) => (
-                <li>{stat.stat.name}: {stat.base_stat}</li>
-              ))
-
-              }
-              </ul>
-              <button onClick={this.fetchSource}>return</button>
+              <div className="row">
+                <div className="col side left-border top-border">
+                  <img src={pokemon.sprites.front_default} />
+                </div>
+                <div className="col center">
+                  <p id="name">{ pokemon.name }</p>
+                </div>
+                <div className="col side right-border top-border" id="poke-id">
+                  <p>#{pokemon.id}</p>
+                </div>
+              </div>
+              <div className="row left-border right-border">
+                <div className="col whole">
+                  <p>Type</p><hr />
+                </div>
+              </div>
+              <div className="row left-border right-border">
+                <div className="col whole">
+                  {types.map((item, index) => (
+                    <p className="type" key={index}>{item}</p>
+                ))}
+                </div>
+    
+              </div>
+              <div className="row left-border right-border bot-border">
+  
+                <div className="col whole">
+                  <table>
+                    <tr>
+                      Stats
+                    </tr>
+                  
+                    {pokemon.stats.map((stat, index) => (
+                      <tr>
+                        <td className="left">{stat.stat.name}</td>
+                        <td className="right">{stat.base_stat}</td>
+                      </tr>
+                    ))
+                    }
+                  </table>
+                </div>
+               
+              </div>
+              <button className="return" onClick={this.fetchSource}>return</button>
             </div>
           }
         </div>
@@ -153,5 +184,6 @@ class App extends Component {
   }
 }
 
+// const Pokemon 
 
 export default App;

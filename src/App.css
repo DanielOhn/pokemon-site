@@ -1,15 +1,19 @@
-.App {
-  text-align: center;
+body {
+  background-color: #282c34;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  text-align: center;
+  color: white;
+  display: center;
+}
+
+.homepage {
+  color: white;
+  text-decoration: none;
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,11 +27,94 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pokemon {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.col {
+  float: left;
+  height: 110%;
+}
+
+.side {
+  width: 23%;
+}
+
+.center {
+  width: 50%;
+}
+
+.whole {
+  width: 100%;
+}
+
+.type {
+  align-self: center;
+
+}
+
+#poke-id {
+  float: right;
+  font-size: .5em;
+}
+
+#name {
+  margin-top: -15%;
+  align-self: center;
+  float: none;
+}
+
+.bot-border {
+  border-bottom: solid;
+}
+
+.top-border {
+  border-top: solid;
+  border-radius: 3px;
+}
+
+.right-border {
+  border-right: solid;
+}
+
+.left-border {
+  border-left: solid;
+}
+
+hr {
+  color: white;
+  width: 35%;
+  border: 1px dashed;
+  margin-top: -12.5%;
+}
+
+.return {
+  width: 25%;
+  align-self: center;
+  margin-top: -4.5%;
+  border: solid white;
+}
+
+table {
+  
+}
+
+td {
+  align-self: center;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
