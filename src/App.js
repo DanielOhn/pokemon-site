@@ -13,6 +13,7 @@ class App extends Component {
       pokemon: null,
       loading: true,
       types: null,
+      img: true,
     };
   }
 
@@ -90,34 +91,53 @@ class App extends Component {
     this.setState({ types: getTypes })
   }
 
+  flipImg = (img) => {
+    if (img) {
+      this.setState({ img: false });
+    } else {
+      this.setState({ img: true });
+    }
+  }
+
   render() {
-    const { pokemons, error, loading, json, pokemon, types } = this.state;
+    const { pokemons, error, loading, json, pokemon, types, img } = this.state;
 
     return (
       <div className="App">
         <h1 className="title"><a className="homepage" href="/">PokéApp</a></h1>
         {!pokemon &&
-        <header className="App-header">
+          <header className="App-header">
           {loading &&
             <p> loading . . . </p>
           }
 
           {!loading && !error &&
-            <div className="container">
-              { pokemons.map(poke => (
-                  <div className="pokemon-list" key={poke.name}>
-                    <a onClick={() => this.getPokemon(poke.name)}>{poke.name}</a>
-                  </div>
-                ))
-               }
-               {json.previous &&
-                <button onClick={this.onBack}>prev</button>
-               }
-               {json.next &&
-                <button onClick={this.onNext}>next</button>
-               }
+            <div className="row">
+              <h3 className="whole underline">
+                Pokémans
+              </h3>
+              <div className="whole pokemon-list">
+                <ul>
+                 {pokemons.map(poke => (
+                   <li className="list" onClick={() => this.getPokemon(poke.name)} key={poke.name}>{poke.name}</li>
+                  ))
+                  }
+                </ul>
+              </div>
+              <div className="col side"></div>
+              <div className="col center">
+                {json.previous &&
+                  <button className="" onClick={this.onBack}>prev</button>
+                } 
+
+                {json.next &&
+                  <button className="" onClick={this.onNext}>next</button>
+                }   
+              </div>
+              <div className="col side"></div>
             </div>
-          }          
+          } 
+     
         </header>
       }
       {pokemon &&
@@ -130,7 +150,13 @@ class App extends Component {
             <div className="pokemon">
               <div className="row">
                 <div className="col side left-border top-border">
-                  <img src={pokemon.sprites.front_default} />
+                  {img && 
+                    <img src={pokemon.sprites.front_default} />
+                  }
+                  {!img &&
+                    <img src={pokemon.sprites.back_default} />
+                  }
+                  <button onClick={() => this.flipImg(img)}>flip</button>
                 </div>
                 <div className="col center">
                   <p id="name">{ pokemon.name }</p>
@@ -153,20 +179,22 @@ class App extends Component {
     
               </div>
               <div className="row left-border right-border bot-border">
-  
                 <div className="col whole">
                   <table>
-                    <tr>
-                      Stats
-                    </tr>
-                  
-                    {pokemon.stats.map((stat, index) => (
+                    <thead>
                       <tr>
-                        <td className="left">{stat.stat.name}</td>
-                        <td className="right">{stat.base_stat}</td>
+                        <th>Stats</th>
                       </tr>
-                    ))
-                    }
+                    </thead>
+                    <tbody>
+                      {pokemon.stats.map((stat, index) => (
+                        <tr key={index}>
+                          <td className="left">{stat.stat.name}</td>
+                          <td className="right">{stat.base_stat}</td>
+                        </tr>                       
+                      ))
+                      }
+                   </tbody>
                   </table>
                 </div>
                

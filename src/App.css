@@ -1,5 +1,5 @@
 body {
-  background-color: #282c34;
+  background-color: #366d85;
 }
 
 .App {
@@ -14,7 +14,7 @@ body {
 }
 
 .App-header {
-  min-height: 100vh;
+  min-height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +31,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 
 .row:after {
   content: "";
@@ -58,7 +57,7 @@ body {
 
 .type {
   align-self: center;
-
+  margin-top: -5%;
 }
 
 #poke-id {
@@ -89,26 +88,11 @@ body {
   border-left: solid;
 }
 
-hr {
-  color: white;
-  width: 35%;
-  border: 1px dashed;
-  margin-top: -12.5%;
-}
-
 .return {
   width: 25%;
   align-self: center;
   margin-top: -4.5%;
   border: solid white;
-}
-
-table {
-  
-}
-
-td {
-  align-self: center;
 }
 
 .right {
@@ -117,4 +101,52 @@ td {
 
 .left {
   float: left;
+}
+
+.pokemon-list ul {
+  padding: 0;
+  list-style: none;
+}
+
+.pokemon-list li {
+  display: block;
+  align-self: center;
+  width: 100%;
+  padding-bottom: 5%;
+  background-color: #366d85;
+
+}
+
+.pokemon-list ul li:hover {
+  animation-name: moving;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  box-shadow: 1px 1px 5px #000000;
+}
+
+@keyframes moving {
+  0% { -moz-transform: rotate(0deg);}
+  25% { -moz-transform: rotate(-5deg);}
+  75% { -moz-transform: rotate(5deg);}
+  100% { -moz-transform: rotate(0deg);}
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+table {
+  align-self: center;
+  width: 100%;
+}
+
+td {
+  align-self: center;
+}
+
+hr {
+  color: white;
+  width: 35%;
+  border: 1px dashed;
+  margin-top: -12.5%;
 }
