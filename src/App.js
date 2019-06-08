@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class App extends Component {
   constructor() {
@@ -107,9 +106,7 @@ class App extends Component {
         <h1 className="title"><a className="homepage" href="/">PokéApp</a></h1>
         {!pokemon &&
           <header className="App-header">
-          {loading &&
-            <p> loading . . . </p>
-          }
+          {loading && <p> loading . . . </p>}
 
           {!loading && !error &&
             <div className="row">
