@@ -1,15 +1,9 @@
-body {
-  background-color: #366d85;
-}
-
 .App {
   text-align: center;
-  color: white;
-  display: center;
 }
 
 .homepage {
-  color: white;
+  color: $off-white;
   text-decoration: none;
 }
 
@@ -20,11 +14,11 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: $off-white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: $cerulean-blue;
 }
 
 .pokemon {
@@ -92,7 +86,7 @@ body {
   width: 25%;
   align-self: center;
   margin-top: -4.5%;
-  border: solid white;
+  border: solid $off-white;
 }
 
 .right {
@@ -117,7 +111,7 @@ body {
   align-self: center;
   width: 100%;
   padding-bottom: 5%;
-  background-color: #366d85;
+  background-color: $cerulean-blue;
 
 }
 
@@ -125,7 +119,7 @@ body {
   animation-name: moving;
   animation-duration: 4s;
   animation-iteration-count: infinite;
-  box-shadow: 1px 1px 5px #000000;
+  box-shadow: 1px 1px 5px $black;
 }
 
 @keyframes moving {
@@ -137,20 +131,4 @@ body {
 
 .underline {
   text-decoration: underline;
-}
-
-table {
-  align-self: center;
-  width: 100%;
-}
-
-td {
-  align-self: center;
-}
-
-hr {
-  color: white;
-  width: 35%;
-  border: 1px dashed;
-  margin-top: -12.5%;
 }
