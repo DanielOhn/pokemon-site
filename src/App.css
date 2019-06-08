@@ -103,6 +103,10 @@ body {
   float: left;
 }
 
+.btn {
+  padding-bottom: 7vh;
+}
+
 .pokemon-list ul {
   padding: 0;
   list-style: none;
