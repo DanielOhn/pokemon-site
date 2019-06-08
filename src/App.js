@@ -122,17 +122,15 @@ class App extends Component {
                   }
                 </ul>
               </div>
-              <div className="col side"></div>
-              <div className="col center">
+              <div className="btn">
                 {json.previous &&
-                  <button className="" onClick={this.onBack}>prev</button>
+                  <button className="left" onClick={this.onBack}>Prev</button>
                 } 
 
                 {json.next &&
-                  <button className="" onClick={this.onNext}>next</button>
+                  <button className="right" onClick={this.onNext}>Next</button>
                 }   
               </div>
-              <div className="col side"></div>
             </div>
           } 
      
