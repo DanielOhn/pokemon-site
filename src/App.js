@@ -71,8 +71,6 @@ class App extends Component {
       const result = await fetch("https://pokeapi.co/api/v2/pokemon/" + poke);
       const pokeJson = await result.json();
 
-      console.log(pokeJson);
-
       this.getTypes(pokeJson.types);
 
       this.setState({ pokemon: pokeJson, loading: false })
@@ -211,7 +209,5 @@ class App extends Component {
     );
   }
 }
-
-// const Pokemon 
 
 export default App;
