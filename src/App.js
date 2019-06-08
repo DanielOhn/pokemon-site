@@ -70,8 +70,6 @@ class App extends Component {
       const result = await fetch("https://pokeapi.co/api/v2/pokemon/" + poke);
       const pokeJson = await result.json();
 
-      console.log(pokeJson);
-
       this.getTypes(pokeJson.types);
 
       this.setState({ pokemon: pokeJson, loading: false })
@@ -121,17 +119,15 @@ class App extends Component {
                   }
                 </ul>
               </div>
-              <div className="col side"></div>
-              <div className="col center">
+              <div className="btn">
                 {json.previous &&
-                  <button className="" onClick={this.onBack}>prev</button>
+                  <button className="left" onClick={this.onBack}>Prev</button>
                 } 
 
                 {json.next &&
-                  <button className="" onClick={this.onNext}>next</button>
+                  <button className="right" onClick={this.onNext}>Next</button>
                 }   
               </div>
-              <div className="col side"></div>
             </div>
           } 
      
@@ -208,7 +204,5 @@ class App extends Component {
     );
   }
 }
-
-// const Pokemon 
 
 export default App;
