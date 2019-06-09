@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Text from './Text';
+import PokemonList from './PokemonList';
+import PokemonInfo from './PokemonInfo';
 
 class App extends Component {
   constructor() {
@@ -117,31 +120,21 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1 className="title">
+        <Text type="title" className="title">
           <a className="homepage" href="/">
             PokéApp
           </a>
-        </h1>
+        </Text>
         {!pokemon && (
           <header className="App-header">
-            {loading && <p> loading . . . </p>}
-
+            {loading && <Text type="paragraph">loading . . .</Text>}
             {!loading && !error && (
-              <div className="row">
-                <h3 className="whole underline">Pokémans</h3>
-                <div className="whole pokemon-list">
-                  <ul>
-                    {pokemons.map((poke) => (
-                      <li
-                        className="list"
-                        onClick={() => this.getPokemon(poke.name)}
-                        key={poke.name}
-                      >
-                        {poke.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <>
+                <PokemonList
+                  pokemons={pokemons}
+                  json={json}
+                  onClickListItem={this.getPokemon}
+                />
                 <div className="btn">
                   {json.previous && (
                     <button className="left" onClick={this.onBack}>
@@ -155,70 +148,21 @@ class App extends Component {
                     </button>
                   )}
                 </div>
-              </div>
+              </>
             )}
           </header>
         )}
         {pokemon && (
           <div className="App-header">
-            {loading && <p>loading</p>}
-
+            {loading && <Text type="paragraph">loading</Text>}
             {!loading && !error && (
-              <div className="pokemon">
-                <div className="row">
-                  <div className="col side left-border top-border">
-                    {img && <img src={pokemon.sprites.front_default} />}
-                    {!img && <img src={pokemon.sprites.back_default} />}
-                    <button onClick={() => this.flipImg(img)}>flip</button>
-                  </div>
-                  <div className="col center">
-                    <p id="name">{pokemon.name}</p>
-                  </div>
-                  <div
-                    className="col side right-border top-border"
-                    id="poke-id"
-                  >
-                    <p>#{pokemon.id}</p>
-                  </div>
-                </div>
-                <div className="row left-border right-border">
-                  <div className="col whole">
-                    <p>Type</p>
-                    <hr />
-                  </div>
-                </div>
-                <div className="row left-border right-border">
-                  <div className="col whole">
-                    {types.map((item, index) => (
-                      <p className="type" key={index}>
-                        {item}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-                <div className="row left-border right-border bot-border">
-                  <div className="col whole">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Stats</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {pokemon.stats.map((stat, index) => (
-                          <tr key={index}>
-                            <td className="left">{stat.stat.name}</td>
-                            <td className="right">{stat.base_stat}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <button className="return" onClick={this.fetchSource}>
-                  return
-                </button>
-              </div>
+              <PokemonInfo
+                pokemon={pokemon}
+                image={img}
+                types={types}
+                onClickBack={this.fetchSource}
+                flipImg={this.flipImg}
+              />
             )}
           </div>
         )}
