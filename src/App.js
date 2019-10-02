@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
+import PokeList from './PokeList'
+import PokeDetails from './PokeDetails'
 
 class App extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       source: 'https://pokeapi.co/api/v2/pokemon/',
@@ -11,23 +14,24 @@ class App extends Component {
       json: null,
       pokemon: null,
       loading: true,
+      poke_load: true,
       types: null,
       img: true,
-    };
+    }
   }
 
   componentDidMount() {
-    this.fetchSource();
+    this.fetchSource()
   }
 
   fetchSource = async () => {
-    const { source } = this.state;
+    const { source } = this.state
 
-    this.setState({ loading: true });
+    this.setState({ loading: true })
 
     try {
-      const result = await fetch(source);
-      const output = await result.json();
+      const result = await fetch(source)
+      const output = await result.json()
 
       this.setState({
         pokemon: null,
@@ -35,197 +39,121 @@ class App extends Component {
         pokemons: output.results,
         json: output,
         loading: false,
-      });
+      })
     } catch (e) {
-      this.setState({ error: e.message, pokemon: null, loading: false });
+      this.setState({ error: e.message, pokemon: null, loading: false })
     }
-  };
+  }
 
   onNext = async () => {
-    const { json } = this.state;
-    this.setState({ loading: true });
+    const { json } = this.state
+    this.setState({ loading: true })
 
     try {
-      const result = await fetch(json.next);
-      const newJson = await result.json();
+      const result = await fetch(json.next)
+      const newJson = await result.json()
 
       this.setState({
         pokemons: newJson.results,
         source: json.next,
         json: newJson,
         loading: false,
-      });
+      })
     } catch (e) {
-      this.setState({ error: e.message, loading: false });
+      this.setState({ error: e.message, loading: false })
     }
-  };
+  }
 
   onBack = async () => {
-    const { json } = this.state;
-    this.setState({ loading: true });
+    const { json } = this.state
+    this.setState({ loading: true })
 
     try {
-      const result = await fetch(json.previous);
-      const prevJson = await result.json();
+      const result = await fetch(json.previous)
+      const prevJson = await result.json()
 
       this.setState({
         pokemons: prevJson.results,
         source: json.previous,
         json: prevJson,
         loading: false,
-      });
+      })
     } catch (e) {
-      this.setState({ error: e.message, loading: false });
+      this.setState({ error: e.message, loading: false })
     }
-  };
+  }
 
   getPokemon = async (poke) => {
-    this.setState({ loading: true });
+    this.setState({ poke_load: true })
 
     try {
-      const result = await fetch('https://pokeapi.co/api/v2/pokemon/' + poke);
-      const pokeJson = await result.json();
+      const result = await fetch('https://pokeapi.co/api/v2/pokemon/' + poke)
+      const pokeJson = await result.json()
 
-      this.getTypes(pokeJson.types);
+      this.getTypes(pokeJson.types)
 
-      this.setState({ pokemon: pokeJson, loading: false });
+      this.setState({ pokemon: pokeJson, poke_load: false })
     } catch (e) {
-      this.setState({ error: e.message, loading: false });
+      this.setState({ error: e.message, poke_load: false })
     }
-  };
+  }
 
   getTypes = (types) => {
-    const getTypes = [];
+    const getTypes = []
 
     for (let i = 0; i < types.length; i++) {
-      getTypes.push(types[i].type.name);
+      getTypes.push(types[i].type.name)
     }
 
-    this.setState({ types: getTypes });
-  };
+    this.setState({ types: getTypes })
+  }
 
   flipImg = (img) => {
     if (img) {
-      this.setState({ img: false });
+      this.setState({ img: false })
     } else {
-      this.setState({ img: true });
+      this.setState({ img: true })
     }
-  };
+  }
 
   render() {
-    const { pokemons, error, loading, json, pokemon, types, img } = this.state;
+    const {
+      pokemons,
+      error,
+      loading,
+      poke_load,
+      json,
+      pokemon,
+      types,
+      img,
+    } = this.state
 
     return (
-      <div className="App">
-        <h1 className="title">
-          <a className="homepage" href="/">
+      <div className='App'>
+        <h1 className='title'>
+          <a className='homepage' href='/'>
             PokéApp
           </a>
         </h1>
-        {!pokemon && (
-          <header className="App-header">
-            {loading && <p> loading . . . </p>}
+        {loading && <p> Loading ... </p>}
 
-            {!loading && !error && (
-              <div className="row">
-                <h3 className="whole underline">Pokémans</h3>
-                <div className="whole pokemon-list">
-                  <ul>
-                    {pokemons.map((poke) => (
-                      <li
-                        className="list"
-                        onClick={() => this.getPokemon(poke.name)}
-                        key={poke.name}
-                      >
-                        {poke.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="btn">
-                  {json.previous && (
-                    <button className="left" onClick={this.onBack}>
-                      Prev
-                    </button>
-                  )}
-
-                  {json.next && (
-                    <button className="right" onClick={this.onNext}>
-                      Next
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-          </header>
+        {!loading && !error && (
+          <PokeList pokemon={pokemons} getPoke={this.getPokemon} />
         )}
-        {pokemon && (
-          <div className="App-header">
-            {loading && <p>loading</p>}
 
-            {!loading && !error && (
-              <div className="pokemon">
-                <div className="row">
-                  <div className="col side left-border top-border">
-                    {img && <img src={pokemon.sprites.front_default} />}
-                    {!img && <img src={pokemon.sprites.back_default} />}
-                    <button onClick={() => this.flipImg(img)}>flip</button>
-                  </div>
-                  <div className="col center">
-                    <p id="name">{pokemon.name}</p>
-                  </div>
-                  <div
-                    className="col side right-border top-border"
-                    id="poke-id"
-                  >
-                    <p>#{pokemon.id}</p>
-                  </div>
-                </div>
-                <div className="row left-border right-border">
-                  <div className="col whole">
-                    <p>Type</p>
-                    <hr />
-                  </div>
-                </div>
-                <div className="row left-border right-border">
-                  <div className="col whole">
-                    {types.map((item, index) => (
-                      <p className="type" key={index}>
-                        {item}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-                <div className="row left-border right-border bot-border">
-                  <div className="col whole">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Stats</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {pokemon.stats.map((stat, index) => (
-                          <tr key={index}>
-                            <td className="left">{stat.stat.name}</td>
-                            <td className="right">{stat.base_stat}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <button className="return" onClick={this.fetchSource}>
-                  return
-                </button>
-              </div>
+        {pokemon && (
+          <div className='App-header'>
+            {poke_load && <p>loading</p>}
+
+            {!poke_load && !error && (
+              <PokeDetails pokemon={pokemon} types={types} />
             )}
           </div>
         )}
         {error && !loading && <p>{error}</p>}
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
