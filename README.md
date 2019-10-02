@@ -1,6 +1,6 @@
 ## Pokemon-Site
 
-[Hosted on Netlify](https://dazzling-turing-386aa3.netlify.com/)
+[Hosted on Netlify](https://poke-site.netlify.com/)
 
 ### Description
 
