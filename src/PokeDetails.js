@@ -1,77 +1,43 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 function PokeDetails(props) {
   return (
-    <div className='right'>
-      {props.pokemon.name} |{props.pokemon.id}
-      {props.pokemon.stats.map((stat, index) => (
-        <tr key={index}>
-          <td className='left'>{stat.stat.name}</td>
-          <td className='right'>{stat.base_stat}</td>
-        </tr>
-      ))}
-      {props.types.map((item, index) => (
-        <p className='type' key={index}>
-          {item}{' '}
-        </p>
-      ))}
-    </div>
+    <Fragment>
+      <div className='poke-left'>
+        <img
+          src={props.pokemon.sprites.front_default}
+          alt={props.pokemon.name}
+        />
+        <br />
+        <small>No. {props.pokemon.id}</small>
+      </div>
+      <div className='poke-right'>
+        <h2>{props.pokemon.name}</h2>
+        {props.types.map((item, index) => (
+          <h3 key={index}>{item}</h3>
+        ))}
+        <h3>HT: {props.pokemon.height}</h3>
+        <h3>WT: {props.pokemon.weight}</h3>
+      </div>
+      <div className='poke-bottom'>
+        <table>
+          <tr>
+            <th className='left'>Base Stats</th>
+            <th className='right'>Value</th>
+          </tr>
+          {props.pokemon.stats.reverse().map((stat, index) => (
+            <tr key={index}>
+              <td className='left'>{stat.stat.name}</td>
+              <td className='right'>{stat.base_stat}</td>
+            </tr>
+          ))}
+        </table>
+      </div>
+    </Fragment>
   )
 }
 
 export default PokeDetails
 
-//  <div className='pokemon'>
-//   <div className='row'>
-//     <div className='col side left-border top-border'>
-//       {img && <img src={pokemon.sprites.front_default} />}
-//       {!img && <img src={pokemon.sprites.back_default} />}
-//       <button onClick={() => this.flipImg(img)}>flip</button>
-//     </div>
-//     <div className='col center'>
-//       <p id='name'>{pokemon.name}</p>
-//     </div>
-//     <div
-//       className='col side right-border top-border'
-//       id='poke-id'
-//     >
-//       <p>#{pokemon.id}</p>
-//     </div>
-//   </div>
-//   <div className='row left-border right-border'>
-//     <div className='col whole'>
-//       <p>Type</p>
-//       <hr />
-//     </div>
-//   </div>
-//   <div className='row left-border right-border'>
-//     <div className='col whole'>
-//       {types.map((item, index) => (
-//         <p className='type' key={index}>
-//           {item}
-//         </p>
-//       ))}
-//     </div>
-//   </div>
-//   <div className='row left-border right-border bot-border'>
-//     <div className='col whole'>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Stats</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {pokemon.stats.map((stat, index) => (
-//             <tr key={index}>
-//               <td className='left'>{stat.stat.name}</td>
-//               <td className='right'>{stat.base_stat}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   </div>
-// </div>
-// )}
-// </div>
+// Height: Decimeters
+// Weight: Hectograms

@@ -1,14 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import PokeList from './PokeList'
 import PokeDetails from './PokeDetails'
+
+// https://pokeapi.co/api/v2/pokemon/?limit=897
+// https://pokeapi.co/api/v2/pokemon/
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      source: 'https://pokeapi.co/api/v2/pokemon/',
+      source: 'https://pokeapi.co/api/v2/pokemon/?limit=897/',
       pokemons: null,
       error: null,
       json: null,
@@ -16,7 +19,6 @@ class App extends Component {
       loading: true,
       poke_load: true,
       types: null,
-      img: true,
     }
   }
 
@@ -108,49 +110,36 @@ class App extends Component {
     this.setState({ types: getTypes })
   }
 
-  flipImg = (img) => {
-    if (img) {
-      this.setState({ img: false })
-    } else {
-      this.setState({ img: true })
-    }
-  }
-
   render() {
-    const {
-      pokemons,
-      error,
-      loading,
-      poke_load,
-      json,
-      pokemon,
-      types,
-      img,
-    } = this.state
+    const { pokemons, error, loading, poke_load, pokemon, types } = this.state
 
     return (
-      <div className='App'>
-        <h1 className='title'>
-          <a className='homepage' href='/'>
-            PokéApp
-          </a>
-        </h1>
-        {loading && <p> Loading ... </p>}
+      <div className='container'>
+        <div className='content'>
+          <div className='pokemon-list'>
+            <div className='pokedex'>
+              <small>Pokedex</small>
 
-        {!loading && !error && (
-          <PokeList pokemon={pokemons} getPoke={this.getPokemon} />
-        )}
+              <small>v 0.01</small>
+            </div>
+            {loading && <p> Loading ... </p>}
 
-        {pokemon && (
-          <div className='App-header'>
-            {poke_load && <p>loading</p>}
-
-            {!poke_load && !error && (
-              <PokeDetails pokemon={pokemon} types={types} />
+            {!loading && !error && (
+              <PokeList pokemon={pokemons} getPoke={this.getPokemon} />
             )}
           </div>
-        )}
-        {error && !loading && <p>{error}</p>}
+
+          {pokemon && (
+            <div className='pokemon-detail'>
+              {poke_load && <p>loading..</p>}
+
+              {!poke_load && !error && (
+                <PokeDetails pokemon={pokemon} types={types} />
+              )}
+            </div>
+          )}
+          {error && !loading && <p>{error}</p>}
+        </div>
       </div>
     )
   }
