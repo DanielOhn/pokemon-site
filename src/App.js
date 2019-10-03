@@ -47,44 +47,6 @@ class App extends Component {
     }
   }
 
-  onNext = async () => {
-    const { json } = this.state
-    this.setState({ loading: true })
-
-    try {
-      const result = await fetch(json.next)
-      const newJson = await result.json()
-
-      this.setState({
-        pokemons: newJson.results,
-        source: json.next,
-        json: newJson,
-        loading: false,
-      })
-    } catch (e) {
-      this.setState({ error: e.message, loading: false })
-    }
-  }
-
-  onBack = async () => {
-    const { json } = this.state
-    this.setState({ loading: true })
-
-    try {
-      const result = await fetch(json.previous)
-      const prevJson = await result.json()
-
-      this.setState({
-        pokemons: prevJson.results,
-        source: json.previous,
-        json: prevJson,
-        loading: false,
-      })
-    } catch (e) {
-      this.setState({ error: e.message, loading: false })
-    }
-  }
-
   getPokemon = async (poke) => {
     this.setState({ poke_load: true })
 
