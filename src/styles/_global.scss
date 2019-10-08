@@ -1,6 +1,35 @@
 body {
-  background-color: $black;
+  background-color: #134e00;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 2rem;
+  font: 1.2rem Inconsolata, monospace;
+  text-shadow: 0 0 1.8px $green;
   cursor: default;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(black, 0.15),
+      rgba(black, 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+  }
+}
+::selection {
+  background: $black;
+  text-shadow: none;
+}
+pre {
+  margin: 0;
 }
 
 table {
@@ -12,9 +41,22 @@ td {
   align-self: center;
 }
 
-hr {
-  color: $off-white;
-  width: 35%;
-  border: 1px dashed;
-  margin-top: -12.5%;
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h2 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  filter: sepia() saturate(500%) hue-rotate(100deg)
+    drop-shadow(1px 0 2px $green);
 }

@@ -72,6 +72,21 @@ class App extends Component {
     this.setState({ types: getTypes })
   }
 
+  convertHeight = (height) => {
+    // Converting from Decimeters to Inches then Feet
+    const getInches = height * 3.94
+    const getHeight = +(getInches / 12).toFixed(2)
+
+    return getHeight
+  }
+
+  convertWeight = (weight) => {
+    // Converting from Hectograms to Pounds
+    const getWeight = +(weight * 0.2205).toFixed(2)
+
+    return getWeight
+  }
+
   render() {
     const { pokemons, error, loading, poke_load, pokemon, types } = this.state
 
@@ -81,8 +96,7 @@ class App extends Component {
           <div className='pokemon-list'>
             <div className='pokedex'>
               <small>Pokedex</small>
-
-              <small>v 0.01</small>
+              <small>v 2.01</small>
             </div>
             {loading && <p> Loading ... </p>}
 
@@ -96,10 +110,17 @@ class App extends Component {
               {poke_load && <p>loading..</p>}
 
               {!poke_load && !error && (
-                <PokeDetails pokemon={pokemon} types={types} />
+                <PokeDetails
+                  pokemon={pokemon}
+                  types={types}
+                  height={this.convertHeight(pokemon.height)}
+                  weight={this.convertWeight(pokemon.weight)}
+                />
               )}
             </div>
           )}
+
+          {!pokemon && <p>Please select a specimen...</p>}
           {error && !loading && <p>{error}</p>}
         </div>
       </div>
